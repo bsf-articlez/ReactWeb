@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./App.css";
 import moment from "moment";
 import pluralize from "pluralize";
-import Input from "./common/components/Input";
+import Input from "../../common/components/Input";
 import { pick } from "lodash";
-import { setValue, submit } from "./feature/form/redux";
+import { setValue, submit } from "./redux";
 import styled from "styled-components";
 
 const Button = styled.button.attrs({
@@ -19,16 +18,7 @@ const Button = styled.button.attrs({
 
 const targetTime = moment("2018-11-27 17:00:00.000");
 
-const mapStateToProps = state =>
-  pick(state, [
-    "loading",
-    "fullName",
-    "email",
-    "acceptTerms",
-    "countdownText",
-    "successMessage",
-    "errorMessage"
-  ]);
+const mapStateToProps = state => state.form;
 
 // const mapStateToProps = state => ({
 //   loading: state.loading,
@@ -93,7 +83,7 @@ class App extends Component {
     e.preventDefault();
     const data = await this.props.submit(this.props.fullName, this.props.email);
     console.log(data);
-    this.props.history.push("/success/win!!!");
+    this.props.history.push("/form/success/win!!!");
   };
   render() {
     const { fullName, email, acceptTerms, countdownText } = this.props;
